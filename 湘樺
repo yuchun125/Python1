@@ -1,1 +1,62 @@
+import pandas as pd
+import matplotlib.pyplot as plt
 
+# 創建示例數據
+data = {
+    '日期': ['2023-11-01', '2023-11-02', '2023-11-03', '2023-11-04', '2023-11-05', '2023-11-06', '2023-11-07', '2023-11-08', '2023-11-09', '2023-11-10', '2023-11-11', '2023-11-12', '2023-11-13', '2023-11-14', '2023-11-15', '2023-11-16', '2023-11-17', '2023-11-18', '2023-11-19', '2023-11-20', '2023-11-21', '2023-11-22', '2023-11-23', '2023-11-24', '2023-11-25', '2023-11-26', '2023-11-27', '2023-11-28', '2023-11-29', '2023-11-30'],
+    '飲食評分（1-10）': [8, 8, 6, 10, 4, 8, 6, 4, 6, 8, 6, 8, 6, 10, 6, 6, 8, 4, 6, 6, 8, 6, 4, 6, 6, 8, 8, 8, 10, 10]
+}
+# 將數據轉換為DataFrame
+df = pd.DataFrame(data)
+
+# 將 '日期' 列轉換為 datetime 格式
+df['日期'] = pd.to_datetime(df['日期'])
+
+# 繪製飲食評分折線圖
+plt.figure(figsize=(10, 5))
+plt.plot(df['日期'], df['飲食評分（1-10）'], marker='o', color='purple', label='飲食評分（1-10）')
+plt.axhline(y=df['飲食評分（1-10）'].mean(), color='red', linestyle='--', label='平均飲食評分')  # 添加平均線
+plt.title('每日飲食評分追蹤')
+plt.xlabel('日期')
+plt.ylabel('飲食評分（1-10）')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)  # 添加日期旋轉
+plt.tight_layout()  # 自動調整圖表布局
+
+# 設置 y 軸範圍
+plt.ylim(0, 12)
+
+# 顯示每個數據點的值
+for i, txt in enumerate(df['飲食評分（1-10）']):
+    plt.annotate(txt, (df['日期'][i], df['飲食評分（1-10）'][i]), textcoords="offset points", xytext=(0, 10), ha='center')
+
+# 計算平均飲食評分
+average_food_rating = df['飲食評分（1-10）'].mean()
+
+# 打印平均飲食評分
+print(f"飲食評分平均值: {average_food_rating}")
+
+# 顯示中文
+plt.rcParams['font.sans-serif'] = ['Microsoft YaHei']
+plt.rcParams['axes.unicode_minus'] = False
+
+# 打印DataFrame
+print("健康報告：")
+print(df)
+
+# 保存數據到CSV文件
+df.to_csv('health_report.csv', index=False)
+
+# 請填入要保存圖片的完整檔案路徑
+image_file_path = 'your_image_path_here.png'
+
+# 保存飲食評分折線圖
+try:
+    plt.savefig(image_file_path)
+    print(f"成功保存圖片：{image_file_path}")
+except Exception as e:
+    print(f"保存圖片失敗：{e}")
+
+# 顯示圖表
+plt.show()
