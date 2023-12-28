@@ -32,10 +32,10 @@ for i, txt in enumerate(df['喝水量（公升）']):
     plt.annotate(txt, (df['日期'][i], df['喝水量（公升）'][i]), textcoords="offset points", xytext=(0, 10), ha='center')
 
 # 計算平均喝水量
-average_sleep_time = df['喝水量（公升）'].mean()
+average_water_intake = df['喝水量（公升）'].mean()
 
 # 打印平均喝水量
-print(f"平均喝水量: {average_sleep_time}")
+print(f"平均喝水量: {average_water_intake}")
 
 # 顯示中文
 plt.rcParams['font.sans-serif'] = ['Microsoft YaHei']
@@ -50,8 +50,8 @@ df.to_csv('health_report.csv', index=False)
 
 # 保存喝水量折線圖
 try:
-    plt.savefig('sleep_time_chart.png')
-    print("成功保存圖片：sleep_time_chart.png")
+    plt.savefig('water_intake_chart.png')
+    print("成功保存圖片：water_intake_chart.png")
 except Exception as e:
     print(f"保存圖片失敗：{e}")
 
